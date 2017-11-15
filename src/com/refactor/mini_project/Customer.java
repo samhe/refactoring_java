@@ -21,21 +21,16 @@ public class Customer {
     }
 
     String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
+        double totalAmount = getTotalCharge();
+        int frequentRenterPoints = getTotalFrequentRenterPoints();
         Enumeration<Rental> rentals = this.rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
         while (rentals.hasMoreElements()) {
             Rental each = rentals.nextElement();
 
-            double thisAmount = amountFor(each);
-            totalAmount += thisAmount;
-            frequentRenterPoints += getFrequentRenterPoints(each);
-
-
             //show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" +
-                    String.valueOf(thisAmount) + "\n";
+            result += "\t" + each.getMovieTitle() + "\t" +
+                    String.valueOf(each.getCharge()) + "\n";
         }
         //add footer lines
         result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
@@ -44,33 +39,24 @@ public class Customer {
         return result;
     }
 
-    private int getFrequentRenterPoints(Rental each) {
-        //add bonus for a two day new release rental
-        if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
-                each.getDaysRented() > 1)
-            return 2;
-        return 1;
+    private int getTotalFrequentRenterPoints() {
+        int frequentRenterPoints = 0;
+        Enumeration<Rental> rentals = this.rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental rental = rentals.nextElement();
+            frequentRenterPoints += rental.getFrequentRenterPoints();
+        }
+        return frequentRenterPoints;
     }
 
-    private double amountFor(Rental rental) {
-        double amount = 0;
-        //determine amounts for each line
-        switch (rental.getMovie().getPriceCode()) {
-            case Movie.REGULAR:
-                amount += 2;
-                if (rental.getDaysRented() > 2)
-                    amount += (rental.getDaysRented() - 2) * 1.5;
-                break;
-            case Movie.NEW_RELEASE:
-                amount += rental.getDaysRented() * 3;
-                break;
-            case Movie.CHILDREN:
-                amount += 1.5;
-                if (rental.getDaysRented() > 3)
-                    amount += (rental.getDaysRented() - 3) * 1.5;
-                break;
+    private double getTotalCharge() {
+        double totalAmount = 0;
+        Enumeration<Rental> rentals = this.rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental rental = rentals.nextElement();
+            totalAmount += rental.getCharge();
         }
-        return amount;
+        return totalAmount;
     }
 
 }
