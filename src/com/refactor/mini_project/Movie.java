@@ -11,7 +11,29 @@ class Movie {
 
     Movie(String title, int priceCode) {
         this.title = title;
+        setPriceCode(priceCode);
+    }
+
+    private void setPriceCode(int priceCode) {
         this.priceCode = priceCode;
+    }
+
+    private PricingStrategy getPricingStrategy() {
+        PricingStrategy ps;
+        switch (getPriceCode()) {
+            case REGULAR:
+                 ps = new RegularPricingStrategy();
+                 break;
+            case NEW_RELEASE:
+                ps = new NewReleasePricingStrategy();
+                break;
+            case CHILDREN:
+                ps = new ChildrendPricingStrategy();
+                break;
+            default:
+                throw new IllegalArgumentException("Incorrect Price Code.");
+        }
+        return ps;
     }
 
     int getPriceCode() {
@@ -23,23 +45,7 @@ class Movie {
     }
 
     public double getCharge(int daysRented) {
-        double amount = 0;
-        //determine amounts for each line
-        switch (getPriceCode()) {
-            case REGULAR:
-                amount += 2;
-                if (daysRented > 2)
-                    amount += (daysRented - 2) * 1.5;
-                break;
-            case NEW_RELEASE:
-                amount += daysRented * 3;
-                break;
-            case CHILDREN:
-                amount += 1.5;
-                if (daysRented > 3)
-                    amount += (daysRented - 3) * 1.5;
-                break;
-        }
-        return amount;
+        PricingStrategy ps = getPricingStrategy();
+        return ps.getCharge(daysRented);
     }
 }
