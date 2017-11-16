@@ -17,7 +17,7 @@ class Movie {
 
     private void setCategory(int category) {
         this.category = category;
-        this.ps = getPricingStrategy(category);
+        this.ps = PricingStrategyFactory.getPricingStrategy(category);
     }
 
     String getTitle() {
@@ -30,24 +30,6 @@ class Movie {
 
     public int getFrequentRenterPoints(int daysRented) {
         return this.ps.getFrequentRenterPoints(daysRented);
-    }
-
-    private PricingStrategy getPricingStrategy(int category) {
-        PricingStrategy ps;
-        switch (category) {
-            case REGULAR:
-                 ps = new RegularPricingStrategy();
-                 break;
-            case NEW_RELEASE:
-                ps = new NewReleasePricingStrategy();
-                break;
-            case CHILDREN:
-                ps = new ChildrendPricingStrategy();
-                break;
-            default:
-                throw new IllegalArgumentException("Incorrect Price Code.");
-        }
-        return ps;
     }
 
 }
