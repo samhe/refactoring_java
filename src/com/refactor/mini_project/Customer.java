@@ -24,19 +24,16 @@ public class Customer {
         double totalAmount = getTotalCharge();
         int frequentRenterPoints = getTotalFrequentRenterPoints();
         Enumeration<Rental> rentals = this.rentals.elements();
-        String result = "Rental Record for " + getName() + "\n";
+        StringBuilder result = new StringBuilder().append("Rental Record for ").append(getName()).append("\n");
         while (rentals.hasMoreElements()) {
             Rental each = rentals.nextElement();
-
             //show figures for this rental
-            result += "\t" + each.getMovieTitle() + "\t" +
-                    String.valueOf(each.getCharge()) + "\n";
+            result.append("\t").append(each.getMovieTitle()).append("\t").append(String.valueOf(each.getCharge())).append("\n");
         }
         //add footer lines
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints) +
-                " frequent renter points";
-        return result;
+        result.append("Amount owed is ").append(String.valueOf(totalAmount)).append("\n");
+        result.append("You earned ").append(String.valueOf(frequentRenterPoints)).append(" frequent renter points");
+        return result.toString();
     }
 
     private int getTotalFrequentRenterPoints() {
