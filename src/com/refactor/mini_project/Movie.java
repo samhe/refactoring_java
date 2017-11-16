@@ -20,16 +20,16 @@ class Movie {
         this.ps = getPricingStrategy(category);
     }
 
-    int getCategory() {
-        return category;
-    }
-
     String getTitle() {
         return title;
     }
 
     public double getCharge(int daysRented) {
         return this.ps.getCharge(daysRented);
+    }
+
+    public int getFrequentRenterPoints(int daysRented) {
+        return this.ps.getFrequentRenterPoints(daysRented);
     }
 
     private PricingStrategy getPricingStrategy(int category) {
