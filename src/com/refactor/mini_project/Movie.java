@@ -7,20 +7,34 @@ class Movie {
     static final int NEW_RELEASE = 1;
 
     private String title;
-    private int priceCode;
+    private int category;
+    private PricingStrategy ps;
 
-    Movie(String title, int priceCode) {
+    Movie(String title, int category) {
         this.title = title;
-        setPriceCode(priceCode);
+        setCategory(category);
     }
 
-    private void setPriceCode(int priceCode) {
-        this.priceCode = priceCode;
+    private void setCategory(int category) {
+        this.category = category;
+        this.ps = getPricingStrategy(category);
     }
 
-    private PricingStrategy getPricingStrategy() {
+    int getCategory() {
+        return category;
+    }
+
+    String getTitle() {
+        return title;
+    }
+
+    public double getCharge(int daysRented) {
+        return this.ps.getCharge(daysRented);
+    }
+
+    private PricingStrategy getPricingStrategy(int category) {
         PricingStrategy ps;
-        switch (getPriceCode()) {
+        switch (category) {
             case REGULAR:
                  ps = new RegularPricingStrategy();
                  break;
@@ -36,16 +50,4 @@ class Movie {
         return ps;
     }
 
-    int getPriceCode() {
-        return priceCode;
-    }
-
-    String getTitle() {
-        return title;
-    }
-
-    public double getCharge(int daysRented) {
-        PricingStrategy ps = getPricingStrategy();
-        return ps.getCharge(daysRented);
-    }
 }
