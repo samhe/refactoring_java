@@ -10,7 +10,7 @@ public class Item {
 		this.setSellIn(sellIn);
 		this.setQuality(quality);
 	}
-    
+
 	/* Generated getter and setter code */
     public String getName() {
 		return name;
@@ -29,5 +29,13 @@ public class Item {
 	}
 	public void setQuality(int quality) {
 		this.quality = quality;
+	}
+
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer(name);
+		sb.append(",").append(sellIn);
+		sb.append(",").append(quality);
+		return sb.toString();
 	}
 }
