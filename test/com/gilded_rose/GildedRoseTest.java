@@ -160,7 +160,13 @@ public class GildedRoseTest {
         gildedRose.addItem(new Item(GildedRose.CONJURED_MANA_CAKE, 30, 50));
         gildedRose.updateQuality();
         assertEquals(48, gildedRose.getItems().get(0).getQuality());
+    }
 
+    @Test
+    public void should_return_correct_result_for_conjured_negative_sellin() throws Exception {
+        gildedRose.addItem(new Item(GildedRose.CONJURED_MANA_CAKE, -2, 50));
+        gildedRose.updateQuality();
+        assertEquals(46, gildedRose.getItems().get(0).getQuality());
     }
 
 }

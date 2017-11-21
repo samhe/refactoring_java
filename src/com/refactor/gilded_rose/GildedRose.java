@@ -34,6 +34,9 @@ public class GildedRose {
             case AGED_BRIE:
                 this.updaters.add(new ItemUpdaterImplAged(item));
                 break;
+            case CONJURED_MANA_CAKE:
+                this.updaters.add(new ItemUpdaterImplConjured(item));
+                break;
             default:
                 this.updaters.add(new ItemUpdaterImplBase(item));
         }
