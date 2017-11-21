@@ -157,16 +157,32 @@ public class GildedRoseTest {
 
     @Test
     public void should_return_correct_result_for_conjured() throws Exception {
-        gildedRose.addItem(new Item(GildedRose.CONJURED_MANA_CAKE, 30, 50));
-        gildedRose.updateQuality();
-        assertEquals(48, gildedRose.getItems().get(0).getQuality());
+        gildedRose.addItem(new Item(GildedRose.CONJURED_MANA_CAKE, 10, 50));
+        gildedRose.addItem(new Item(GildedRose.CONJURED_MANA_CAKE, 50, 20));
+        for (int i = 0; i < 60; i++) {
+            List<Item> items = gildedRose.getItems();
+            int[] expectedQualities = new int[items.size()];
+            for (int j = 0; j < items.size(); j++) {
+                Item item = items.get(j);
+                int expectedQuality = getConjuredQualityBySellIn(item);
+                expectedQualities[j] = expectedQuality;
+            }
+            gildedRose.updateQuality();
+            assertItemUpdatedResults(gildedRose.getItems(), expectedQualities);
+        }
     }
 
-    @Test
-    public void should_return_correct_result_for_conjured_negative_sellin() throws Exception {
-        gildedRose.addItem(new Item(GildedRose.CONJURED_MANA_CAKE, -2, 50));
-        gildedRose.updateQuality();
-        assertEquals(46, gildedRose.getItems().get(0).getQuality());
+    private int getConjuredQualityBySellIn(Item item) {
+        int updatedSellIn = item.getSellIn() - 1;
+        int updatedQuality, a, b;
+        if (updatedSellIn >= 0) {
+            a = 2;
+        } else {
+            a = 4;
+        }
+        b = item.getQuality() - item.getSellIn() * a;
+        updatedQuality = updatedSellIn * a + b;
+        return updatedQuality > 0 ? (updatedQuality <= 50 ? updatedQuality : 50) : 0;
     }
 
 }
