@@ -3,7 +3,6 @@ package com.refactor.gilded_rose;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -14,6 +13,13 @@ public class GildedRoseTest {
     @Before
     public void initGildedRose() {
         this.gildedRose = new GildedRose();
+    }
+
+    private void assertItemUpdatedResults(List<Item> items, int[] expectedQualities) {
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            assertEquals(expectedQualities[i], item.getQuality());
+        }
     }
     //q = s*a + b
     private int getDexterityVestQualityBySellIn(Item item) {
@@ -34,14 +40,16 @@ public class GildedRoseTest {
         gildedRose.addItem(new Item(GildedRose.DEXTERITY_VEST, 30, 40));
         gildedRose.addItem(new Item(GildedRose.DEXTERITY_VEST, 50, 50));
         gildedRose.addItem(new Item(GildedRose.DEXTERITY_VEST, 70, 50));
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 80; i++) {
             List<Item> items = gildedRose.getItems();
+            int[] expectedQualities = new int[items.size()];
             for (int j = 0; j < items.size(); j++) {
                 Item item = items.get(j);
                 int expectedQuality = getDexterityVestQualityBySellIn(item);
-                GildedRose.updateItemQuality(item);
-                assertEquals(expectedQuality, item.getQuality());
+                expectedQualities[j] = expectedQuality;
             }
+            gildedRose.updateQuality();
+            assertItemUpdatedResults(gildedRose.getItems(), expectedQualities);
         }
     }
 
@@ -65,14 +73,16 @@ public class GildedRoseTest {
         gildedRose.addItem(new Item(GildedRose.AGED_BRIE, 30, 1));
         gildedRose.addItem(new Item(GildedRose.AGED_BRIE, 60, 0));
         gildedRose.addItem(new Item(GildedRose.AGED_BRIE, 10, 20));
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 70; i++) {
             List<Item> items = gildedRose.getItems();
+            int[] expectedQualities = new int[items.size()];
             for (int j = 0; j < items.size(); j++) {
                 Item item = items.get(j);
                 int expectedQuality = getAgedBrieQualityBySellIn(item);
-                GildedRose.updateItemQuality(item);
-                assertEquals(expectedQuality, item.getQuality());
+                expectedQualities[j] = expectedQuality;
             }
+            gildedRose.updateQuality();
+            assertItemUpdatedResults(gildedRose.getItems(), expectedQualities);
         }
     }
 
@@ -91,12 +101,14 @@ public class GildedRoseTest {
         gildedRose.addItem(new Item(GildedRose.SULFURAS_HAND_OF_RAGNAROS, 30, 80));
         for (int i = 0; i < 60; i++) {
             List<Item> items = gildedRose.getItems();
+            int[] expectedQualities = new int[items.size()];
             for (int j = 0; j < items.size(); j++) {
                 Item item = items.get(j);
                 int expectedQuality = getSulfurasQualityBySellIn(item);
-                GildedRose.updateItemQuality(item);
-                assertEquals(expectedQuality, item.getQuality());
+                expectedQualities[j] = expectedQuality;
             }
+            gildedRose.updateQuality();
+            assertItemUpdatedResults(gildedRose.getItems(), expectedQualities);
         }
     }
 
@@ -128,12 +140,14 @@ public class GildedRoseTest {
         gildedRose.addItem(new Item(GildedRose.BACKSTAGE_PASSES_TO_A_TAFKAL80_ETC_CONCERT, 60, 1));
         for (int i = 0; i < 60; i++) {
             List<Item> items = gildedRose.getItems();
+            int[] expectedQualities = new int[items.size()];
             for (int j = 0; j < items.size(); j++) {
                 Item item = items.get(j);
                 int expectedQuality = getBackstageQualityBySellIn(item);
-                GildedRose.updateItemQuality(item);
-                assertEquals(expectedQuality, item.getQuality());
+                expectedQualities[j] = expectedQuality;
             }
+            gildedRose.updateQuality();
+            assertItemUpdatedResults(gildedRose.getItems(), expectedQualities);
         }
     }
 }
