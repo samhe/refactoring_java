@@ -36,10 +36,13 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void should_return_correct_result_for_dexterity_vest() throws Exception {
+    public void should_return_correct_result_for_normal_items() throws Exception {
         gildedRose.addItem(new Item(GildedRose.DEXTERITY_VEST, 30, 40));
         gildedRose.addItem(new Item(GildedRose.DEXTERITY_VEST, 50, 50));
         gildedRose.addItem(new Item(GildedRose.DEXTERITY_VEST, 70, 50));
+        gildedRose.addItem(new Item(GildedRose.ELIXIR_OF_THE_MONGOOSE, 30, 40));
+        gildedRose.addItem(new Item(GildedRose.ELIXIR_OF_THE_MONGOOSE, 50, 50));
+        gildedRose.addItem(new Item(GildedRose.ELIXIR_OF_THE_MONGOOSE, 70, 50));
         for (int i = 0; i < 80; i++) {
             List<Item> items = gildedRose.getItems();
             int[] expectedQualities = new int[items.size()];

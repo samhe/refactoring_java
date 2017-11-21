@@ -23,7 +23,20 @@ public class GildedRose {
 
     public void addItem(Item item) {
         this.items.add(item);
-        this.updaters.add(new ItemUpdater(item));
+        String category = item.getName();
+        switch (category) {
+            case BACKSTAGE_PASSES_TO_A_TAFKAL80_ETC_CONCERT:
+                this.updaters.add(new ItemUpdaterImplBackstage(item));
+                break;
+            case SULFURAS_HAND_OF_RAGNAROS:
+                this.updaters.add(new ItemUpdaterImplSulfuras(item));
+                break;
+            case AGED_BRIE:
+                this.updaters.add(new ItemUpdaterImplAged(item));
+                break;
+            default:
+                this.updaters.add(new ItemUpdaterImplBase(item));
+        }
     }
 
     public List<Item> getItems() {
