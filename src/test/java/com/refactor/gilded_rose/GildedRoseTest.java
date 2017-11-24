@@ -1,5 +1,7 @@
 package com.refactor.gilded_rose;
 
+import com.refactor.gilded_rose.GildedRose;
+import com.refactor.gilded_rose.Item;
 import org.junit.Before;
 import org.junit.Test;
 
