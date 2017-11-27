@@ -12,81 +12,25 @@ import java.util.Stack;
 
 public class DOMBuilder extends AbstractBuilder {
 	private Document doc;
-	private Element root;
-	private Element parent;
-	private Element current;
 
 	public DOMBuilder(String rootName) {
 		init(rootName);
-	}
-
-	public void addAbove(String uncle) {
-		if (current == root)
-			throw new RuntimeException(CANNOT_ADD_ABOVE_ROOT);
-		history.pop();
-		boolean atRootNode = (history.size() == 1);
-		if (atRootNode)
-			throw new RuntimeException(CANNOT_ADD_ABOVE_ROOT);
-		history.pop();
-		current = (Element) history.peek();
-		addBelow(uncle);
-	}
-
-	public void addGrandfather(String grandfather) {
-		if (current == root)
-			throw new RuntimeException(CANNOT_ADD_ABOVE_ROOT);
-		history.pop();
-		boolean atRootNode = (history.size() == 1);
-		if (atRootNode)
-			throw new RuntimeException(CANNOT_ADD_ABOVE_ROOT);
-		history.pop();
-		history.pop();
-		current = (Element) history.peek();
-		addBelow(grandfather);
-	}
-
-	public void addAttribute(String name, String value) {
-		current.setAttribute(name, value);
-	}
-
-	public void addBelow(String child) {
-		Element childNode = doc.createElement(child);
-		current.appendChild(childNode);
-		parent = current;
-		current = childNode;
-		history.push(current);
-	}
-
-	public void addBeside(String sibling) {
-		if (current == root)
-			throw new RuntimeException(CANNOT_ADD_BESIDE_ROOT);
-		Element siblingNode = doc.createElement(sibling);
-		parent.appendChild(siblingNode);
-		current = siblingNode;
-		history.pop();
-		history.push(current);
-	}
-
-	public void addValue(String value) {
-		current.appendChild(doc.createTextNode(value));
 	}
 
 	public Document getDocument() {
 		return doc;
 	}
 
+	@Override
 	protected void init(String rootName) {
 		doc = new DocumentImpl();
-		root = doc.createElement(rootName);
-		doc.appendChild(root);
+		Element rootElement = doc.createElement(rootName);
+		doc.appendChild(rootElement);
+		root = new INodeAdaptorImplDOM(doc, rootElement);
 		current = root;
 		parent = root;
 		history = new Stack();
 		history.push(current);
-	}
-
-	public void startNewBuild(String rootName) {
-		init(rootName);
 	}
 
 	public String toString() {
@@ -101,5 +45,11 @@ public class DOMBuilder extends AbstractBuilder {
 			return ioe.getMessage();
 		}
 		return stringOut.toString();
+	}
+
+	@Override
+	protected INode createNode(String child) {
+		Element element = doc.createElement(child);
+		return new INodeAdaptorImplDOM(doc, element);
 	}
 }
