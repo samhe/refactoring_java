@@ -40,8 +40,7 @@ public abstract class AbstractBuilder implements OutputBuilder {
 	}
 
 	public void addBelow(String child) {
-		INode childNode = createNode(child);
-		current.add(childNode);
+		INode childNode = current.add(child);
 		parent = current;
 		current = childNode;
 		history.push(current);
@@ -50,8 +49,7 @@ public abstract class AbstractBuilder implements OutputBuilder {
 	public void addBeside(String sibling) {
 		if (current == root)
 			throw new RuntimeException(CANNOT_ADD_BESIDE_ROOT);
-		INode siblingNode = createNode(sibling);
-		parent.add(siblingNode);
+		INode siblingNode = parent.add(sibling);
 		current = siblingNode;
 		history.pop();
 		history.push(current);
@@ -67,5 +65,5 @@ public abstract class AbstractBuilder implements OutputBuilder {
 
 	protected abstract void init(String rootName);
 
-	protected abstract INode createNode(String child);
+//	protected abstract INode createNode(String child);
 }

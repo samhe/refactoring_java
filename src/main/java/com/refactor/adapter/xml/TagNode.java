@@ -16,8 +16,10 @@ public class TagNode implements INode {
 	}
 
 	@Override
-	public void add(INode childNode) {
+	public INode add(String child) {
+		INode childNode = new TagNode(child);
 		children().add(childNode);
+		return childNode;
 	}
 
 	@Override

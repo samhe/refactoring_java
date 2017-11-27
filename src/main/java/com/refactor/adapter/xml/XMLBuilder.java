@@ -3,16 +3,13 @@ package com.refactor.adapter.xml;
 import java.util.Stack;
 
 public class XMLBuilder extends AbstractBuilder {
-	private INode root;
-	private INode parent;
-	private INode current;
 
 	public XMLBuilder(String rootName) {
 		init(rootName);
 	}
 
 	protected void init(String rootName) {
-		root = createNode(rootName);
+		root = new TagNode(rootName);
 		current = root;
 		parent = root;
 		history = new Stack();
@@ -25,11 +22,6 @@ public class XMLBuilder extends AbstractBuilder {
 
 	public String toString() {
 		return root.toString();
-	}
-
-	@Override
-	protected INode createNode(String child) {
-		return new TagNode(child);
 	}
 
 }

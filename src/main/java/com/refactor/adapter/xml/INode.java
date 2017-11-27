@@ -3,7 +3,7 @@ package com.refactor.adapter.xml;
 import java.util.List;
 
 public interface INode {
-    void add(INode childNode);
+    INode add(String child);
 
     void addAttribute(String attribute, String value);
 

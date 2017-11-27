@@ -47,9 +47,4 @@ public class DOMBuilder extends AbstractBuilder {
 		return stringOut.toString();
 	}
 
-	@Override
-	protected INode createNode(String child) {
-		Element element = doc.createElement(child);
-		return new INodeAdaptorImplDOM(doc, element);
-	}
 }

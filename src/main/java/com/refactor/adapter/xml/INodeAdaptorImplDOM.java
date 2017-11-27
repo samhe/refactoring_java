@@ -7,8 +7,6 @@ import java.util.List;
 
 public class INodeAdaptorImplDOM implements INode {
     private Document doc;
-
-
     private Element element;
 
     public INodeAdaptorImplDOM(Document doc, Element element) {
@@ -16,13 +14,12 @@ public class INodeAdaptorImplDOM implements INode {
         this.element = element;
     }
 
-    public Element getElement() {
-        return element;
-    }
-
     @Override
-    public void add(INode childNode) {
-        element.appendChild(((INodeAdaptorImplDOM) childNode).getElement());
+    public INode add(String child) {
+        Element childElement = doc.createElement(child);
+        element.appendChild(childElement);
+        INode childNode = new INodeAdaptorImplDOM(doc, childElement);
+        return childNode;
     }
 
     @Override
