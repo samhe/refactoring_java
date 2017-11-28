@@ -3,7 +3,7 @@ package com.refactor.adapter.xml;
 import java.util.List;
 
 public interface Node {
-    void add(Node childNode);
+    Node add(String name);
 
     void addAttribute(String attribute, String value);
 

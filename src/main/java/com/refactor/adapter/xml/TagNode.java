@@ -17,8 +17,10 @@ public class TagNode implements Node {
 	}
 
 	@Override
-	public void add(Node childNode) {
-		children().add(childNode);
+	public Node add(String name) {
+		Node newNode = new TagNode(name);
+		children().add(newNode);
+		return newNode;
 	}
 
 	@Override
