@@ -12,67 +12,16 @@ import java.util.Stack;
 
 public class DOMBuilder extends AbstractBuilder {
 	private Document doc;
-	private Node root;
-	private Node parent;
-	private Node current;
 
 	public DOMBuilder(String rootName) {
-		init(rootName);
-	}
-
-	public void addAbove(String uncle) {
-		if (current == root)
-			throw new RuntimeException(CANNOT_ADD_ABOVE_ROOT);
-		history.pop();
-		boolean atRootNode = (history.size() == 1);
-		if (atRootNode)
-			throw new RuntimeException(CANNOT_ADD_ABOVE_ROOT);
-		history.pop();
-		current = (Node) history.peek();
-		addBelow(uncle);
-	}
-
-	public void addGrandfather(String grandfather) {
-		if (current == root)
-			throw new RuntimeException(CANNOT_ADD_ABOVE_ROOT);
-		history.pop();
-		boolean atRootNode = (history.size() == 1);
-		if (atRootNode)
-			throw new RuntimeException(CANNOT_ADD_ABOVE_ROOT);
-		history.pop();
-		history.pop();
-		current = (Node) history.peek();
-		addBelow(grandfather);
-	}
-
-	public void addAttribute(String name, String value) {
-		current.addAttribute(name, value);
-	}
-
-	public void addBelow(String child) {
-		Node childNode = current.add(child);
-		parent = current;
-		current = childNode;
-		history.push(current);
-	}
-
-	public void addBeside(String sibling) {
-		if (current == root)
-			throw new RuntimeException(CANNOT_ADD_BESIDE_ROOT);
-		Node siblingNode = parent.add(sibling);
-		current = siblingNode;
-		history.pop();
-		history.push(current);
-	}
-
-	public void addValue(String value) {
-		current.addValue(value);;
+		startNewBuild(rootName);
 	}
 
 	public Document getDocument() {
 		return doc;
 	}
 
+	@Override
 	protected void init(String rootName) {
 		doc = new DocumentImpl();
 		Element rootElement = doc.createElement(rootName);
@@ -83,10 +32,6 @@ public class DOMBuilder extends AbstractBuilder {
 		parent = root;
 		history = new Stack();
 		history.push(current);
-	}
-
-	public void startNewBuild(String rootName) {
-		init(rootName);
 	}
 
 	public String toString() {

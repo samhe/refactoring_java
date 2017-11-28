@@ -32,6 +32,9 @@ public class ElementAdapter implements Node {
         element.appendChild(doc.createTextNode(value));
     }
 
+    /**
+     * NOTES: Not implement the method yet, is it an potential risk in adapter pattern ??
+     */
     @Override
     public List children() {
         throw new UnsupportedOperationException();
