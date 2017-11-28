@@ -18,7 +18,7 @@ public class ElementAdapter implements Node {
     @Override
     public Node add(String name) {
         Element newElement = doc.createElement(name);
-        newElement.appendChild(newElement);
+        element.appendChild(newElement);
         return new ElementAdapter(doc, newElement);
     }
 
