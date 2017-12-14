@@ -2,6 +2,7 @@ package com.refactor.system_permission;
 
 public class SystemProfile {
     private boolean isUnixPermissionRequired;
+
     private boolean isUnixPermissionGranted;
 
     public SystemProfile(boolean isUnixPermissionRequired) {
@@ -19,5 +20,9 @@ public class SystemProfile {
 
     public boolean isUnixPermissionGranted() {
         return this.isUnixPermissionGranted;
+    }
+
+    public void setUnixPermissionGranted(boolean unixPermissionGranted) {
+        isUnixPermissionGranted = unixPermissionGranted;
     }
 }
