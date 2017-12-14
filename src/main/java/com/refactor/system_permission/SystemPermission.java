@@ -24,7 +24,7 @@ public class SystemPermission {
     }
 
     public boolean isGranted() {
-        return this.state == GRANTED;
+        return GRANTED.equals(this.state);
     }
     public void claimedBy(SystemAdmin admin) {
         if (state.equals(REQUESTED)) {
