@@ -1,9 +1,9 @@
-# JAVA Sample Projects for Refactoring Excercise
+# JAVA Sample Projects for Refactoring Exercise
 
 ## Branches
 
 - master: origin codes to refactor
-- ```<feature branch>```: output for one excercise
+- ```<feature branch>```: output for one exercise
 
 ## Folder Structure
 
