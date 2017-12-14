@@ -1,16 +1,14 @@
 package com.refactor.system_permission;
 
-public class RequestedSate implements PermissionState {
+public class ClaimedSate implements PermissionState {
     private SystemPermission systemPermission;
-
-    public RequestedSate(SystemPermission systemPermission) {
+    public ClaimedSate(SystemPermission systemPermission) {
         this.systemPermission = systemPermission;
     }
 
     @Override
     public void claimBy(SystemAdmin admin) {
-        systemPermission.setAdmin(admin);
-        systemPermission.setPermissionState(new ClaimedSate(systemPermission));
+
     }
 
     @Override

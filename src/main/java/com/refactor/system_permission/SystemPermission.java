@@ -11,7 +11,9 @@ public class SystemPermission {
     private PermissionState permissionState;
 
     public final static String REQUESTED = "REQUESTED";
+
     public final static String CLAIMED = "CLAIMED";
+
     public final static String GRANTED = "GRANTED";
     public final static String DENIED = "DENIED";
     public static final String UNIX_REQUESTED = "UNIX_REQUESTED";
@@ -24,6 +26,17 @@ public class SystemPermission {
     }
     private void notifyAdminOfPermissionRequest() {
 
+    }
+    public void setPermissionState(PermissionState permissionState) {
+        this.permissionState = permissionState;
+    }
+
+    public SystemProfile getProfile() {
+        return profile;
+    }
+
+    public SystemAdmin getAdmin() {
+        return admin;
     }
 
     public void setState(String state) {
