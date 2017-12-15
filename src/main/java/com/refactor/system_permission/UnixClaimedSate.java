@@ -1,8 +1,8 @@
 package com.refactor.system_permission;
 
-public class ClaimedSate implements PermissionState {
+public class UnixClaimedSate implements PermissionState {
     private SystemPermission systemPermission;
-    public ClaimedSate(SystemPermission systemPermission) {
+    public UnixClaimedSate(SystemPermission systemPermission) {
         this.systemPermission = systemPermission;
     }
 
@@ -23,11 +23,7 @@ public class ClaimedSate implements PermissionState {
     public void grantBy(SystemAdmin admin) {
         if(systemPermission.isClaimedBy(admin)) {
             SystemProfile profile = systemPermission.getProfile();
-            if (profile.isUnixPermissionRequired()) {
-                profile.setUnixPermissionGranted(true);
-                systemPermission.setPermissionState(new UnixRequestedState(systemPermission));
-                systemPermission.notifyUnixAdminsOfPermissionRequest();
-            } else {
+            if (profile.isUnixPermissionRequired() && profile.isUnixPermissionGranted()) {
                 systemPermission.setPermissionState(new GrantedState(systemPermission));
             }
         }
@@ -35,6 +31,6 @@ public class ClaimedSate implements PermissionState {
 
     @Override
     public String getState() {
-        return SystemPermission.CLAIMED;
+        return SystemPermission.UNIX_CLAIMED;
     }
 }

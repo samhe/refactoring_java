@@ -24,7 +24,7 @@ public class SystemPermission {
         notifyAdminOfPermissionRequest();
         permissionState = new RequestedSate(this);
     }
-    private void notifyAdminOfPermissionRequest() {
+    public void notifyAdminOfPermissionRequest() {
 
     }
     public void setPermissionState(PermissionState permissionState) {
@@ -50,6 +50,7 @@ public class SystemPermission {
     public boolean isGranted() {
         return GRANTED.equals(this.state);
     }
+
     public void claimedBy(SystemAdmin admin) {
         if (state.equals(REQUESTED)) {
             setAdmin(admin);
@@ -62,7 +63,7 @@ public class SystemPermission {
         permissionState.claimBy(admin);
     }
 
-    private boolean isClaimedBy(SystemAdmin admin) {
+    public boolean isClaimedBy(SystemAdmin admin) {
         return this.admin != null && this.admin.equals(admin);
     }
 
@@ -76,7 +77,7 @@ public class SystemPermission {
         permissionState.denyBy(admin);
     }
 
-    private void notifyUserOfPermissionRequestResult() {
+    public void notifyUserOfPermissionRequestResult() {
 
     }
 
@@ -99,7 +100,7 @@ public class SystemPermission {
         permissionState.grantBy(admin);
     }
 
-    private void notifyUnixAdminsOfPermissionRequest() {
+    public void notifyUnixAdminsOfPermissionRequest() {
 
     }
 
