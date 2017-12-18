@@ -1,0 +1,38 @@
+@startuml
+
+interface PermissionState
+abstract AbstractPermissionState
+
+
+PermissionState <|-- AbstractPermissionState
+SystemPermission o-- AbstractPermissionState
+
+AbstractPermissionState <|-- RequestedState
+AbstractPermissionState <|-- UnixRequestedState
+AbstractPermissionState <|-- ClaimedState
+AbstractPermissionState <|-- UnixClaimedState
+AbstractPermissionState <|-- DeniedState
+AbstractPermissionState <|-- GrantedState
+
+
+interface PermissionState {
+    void claimBy(SystemAdmin)
+    void grantBy(SystemAdmin)
+    void denyBy(SystemAdmin)
+    String getState()
+}
+
+abstract AbstractPermissionState {
+    SystemPermission systemPermission
+}
+
+class SystemPermission {
+    PermissionState permissionState
+    void setState(PermissionState)
+    void claimedBy(SystemAdmin)
+    void grantedBy(SystemAdmin)
+    void deniedBy(SystemAdmin)
+}
+
+
+@enduml

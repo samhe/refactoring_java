@@ -1,9 +1,8 @@
 package com.refactor.system_permission;
 
-public class UnixRequestedState implements PermissionState {
-    private SystemPermission systemPermission;
+public class UnixRequestedState extends AbstractPermissionState {
     public UnixRequestedState(SystemPermission systemPermission) {
-        this.systemPermission = systemPermission;
+        super(systemPermission);
     }
 
     @Override

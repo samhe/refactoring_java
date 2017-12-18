@@ -1,9 +1,8 @@
 package com.refactor.system_permission;
 
-public class DeniedState implements PermissionState {
-    private SystemPermission systemPermission;
+public class DeniedState extends AbstractPermissionState {
     public DeniedState(SystemPermission systemPermission) {
-        this.systemPermission = systemPermission;
+        super(systemPermission);
     }
 
     @Override

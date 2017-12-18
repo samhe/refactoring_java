@@ -1,9 +1,8 @@
 package com.refactor.system_permission;
 
-public class ClaimedSate implements PermissionState {
-    private SystemPermission systemPermission;
+public class ClaimedSate extends AbstractPermissionState {
     public ClaimedSate(SystemPermission systemPermission) {
-        this.systemPermission = systemPermission;
+        super(systemPermission);
     }
 
     @Override
